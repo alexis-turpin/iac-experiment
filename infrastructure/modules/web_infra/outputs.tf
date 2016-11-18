@@ -3,5 +3,5 @@ output "elb_dns_name" {
 }
 
 output "version" {
-  value = "0.1"
+	value = "0.1"
 }

@@ -1,15 +1,14 @@
 # Get the data from remote state and amazon
 data "terraform_remote_state" "network" {
-  backend = "s3"
-
-  config {
-    bucket = "terraform-states-iac-experiment"
-    key    = "dev/network.tfstate"
-    region = "us-east-1"
-  }
+    backend = "s3"
+    config {
+        bucket = "terraform-states-iac-experiment"
+        key = "dev/network.tfstate"
+        region = "us-east-1"
+    }
 }
-
 data "aws_availability_zones" "all" {}
+
 
 provider "aws" {
   region = "${var.region}"
@@ -18,16 +17,15 @@ provider "aws" {
 module "front" {
   source = "../../modules/web_infra"
 
-  infra                  = "front"
-  env                    = "dev"
-  min_size               = 2
-  max_size               = 5
-  instance_port          = 8080
-  subnets_id             = "${data.terraform_remote_state.network.front_subnets}"
+  infra = "front"
+  env = "dev"
+  min_size = 2
+  max_size = 5
+  instance_port = 8080
+  subnets_id = "${data.terraform_remote_state.network.front_subnets}"
   aws_availability_zones = ["${data.aws_availability_zones.all.names}"]
-  sg_internal_ssh_id     = "${data.terraform_remote_state.network.sg_internal_ssh_id}"
-  vpc_id                 = "${data.terraform_remote_state.network.vpc_id}"
-
+  sg_internal_ssh_id = "${data.terraform_remote_state.network.sg_internal_ssh_id}"
+  vpc_id = "${data.terraform_remote_state.network.vpc_id}"
   user_data = <<-EOF
               #!/bin/bash
               echo "I am front :  " > index.html
@@ -41,16 +39,15 @@ module "front" {
 module "back" {
   source = "../../modules/web_infra"
 
-  infra                  = "back"
-  env                    = "dev"
-  min_size               = 2
-  max_size               = 5
-  instance_port          = 8080
-  subnets_id             = "${data.terraform_remote_state.network.back_subnets}"
+  infra = "back"
+  env = "dev"
+  min_size = 2
+  max_size = 5
+  instance_port = 8080
+  subnets_id = "${data.terraform_remote_state.network.back_subnets}"
   aws_availability_zones = ["${data.aws_availability_zones.all.names}"]
-  sg_internal_ssh_id     = "${data.terraform_remote_state.network.sg_internal_ssh_id}"
-  vpc_id                 = "${data.terraform_remote_state.network.vpc_id}"
-
+  sg_internal_ssh_id = "${data.terraform_remote_state.network.sg_internal_ssh_id}"
+  vpc_id = "${data.terraform_remote_state.network.vpc_id}"
   user_data = <<-EOF
               #!/bin/bash
               echo "I am back :  " > index.html
