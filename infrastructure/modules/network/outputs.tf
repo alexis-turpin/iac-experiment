@@ -1,6 +1,7 @@
 output "front_subnets" {
   value = ["${aws_subnet.front.*.id}"]
 }
+
 output "back_subnets" {
   value = ["${aws_subnet.back.*.id}"]
 }
@@ -14,5 +15,5 @@ output "vpc_id" {
 }
 
 output "version" {
-	value = "0.1"
+  value = "0.1"
 }
