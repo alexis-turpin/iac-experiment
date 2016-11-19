@@ -84,6 +84,7 @@ resource "aws_elb" "main" {
   }
 
   tags {
+    Name      = "${var.env}-${var.infra}-elb"
     infra     = "${var.infra}"
     env       = "${var.env}"
     terraform = "True"
