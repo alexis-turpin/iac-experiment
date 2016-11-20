@@ -1,5 +1,6 @@
 resource "aws_vpc" "main" {
-  cidr_block = "10.${var.vpc_subnet_tag}.0.0/16"
+  cidr_block           = "10.${var.vpc_subnet_tag}.0.0/16"
+  enable_dns_hostnames = "True"
 
   tags {
     Name      = "${var.env}-main-vpc"
@@ -23,7 +24,8 @@ resource "aws_internet_gateway" "main" {
 }
 
 resource "aws_subnet" "front" {
-  count                   = 4                                                                     # dirty hard-code for now workaround for issue 1497
+  # dirty hard-code for now workaround for issue #1497
+  count                   = 4
   availability_zone       = "${element(var.aws_availability_zones, count.index)}"
   vpc_id                  = "${aws_vpc.main.id}"
   cidr_block              = "10.${var.vpc_subnet_tag}.${var.front_subnet_tag}${count.index}.0/24"
@@ -39,7 +41,8 @@ resource "aws_subnet" "front" {
 }
 
 resource "aws_subnet" "back" {
-  count                   = 4                                                                    # dirty hard-code for now workaround for issue 1497
+  # dirty hard-code for now workaround for issue 1497
+  count                   = 4
   availability_zone       = "${element(var.aws_availability_zones, count.index)}"
   vpc_id                  = "${aws_vpc.main.id}"
   cidr_block              = "10.${var.vpc_subnet_tag}.${var.back_subnet_tag}${count.index}.0/24"

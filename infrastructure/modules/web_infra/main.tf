@@ -17,13 +17,15 @@ data "aws_ami" "ubuntu" {
 
 # Instance configuration
 resource "aws_autoscaling_group" "instance" {
-  name                      = "${var.env}-${var.infra}-asg"
-  launch_configuration      = "${aws_launch_configuration.instance.id}"
-  availability_zones        = ["${var.aws_availability_zones}"]
-  load_balancers            = ["${aws_elb.main.name}"]
-  vpc_zone_identifier       = ["${var.subnets_id}"]
-  health_check_type         = "ELB"
-  health_check_grace_period = 300                                       # 5 minutes before starting to check health, could be reduced
+  name                 = "${var.env}-${var.infra}-asg"
+  launch_configuration = "${aws_launch_configuration.instance.id}"
+  availability_zones   = ["${var.aws_availability_zones}"]
+  load_balancers       = ["${aws_elb.main.name}"]
+  vpc_zone_identifier  = ["${var.subnets_id}"]
+  health_check_type    = "ELB"
+
+  # 5 minutes before starting to check health, could be reduced
+  health_check_grace_period = 300
   min_size                  = "${var.min_size}"
   max_size                  = "${var.max_size}"
   termination_policies      = ["OldestInstance"]

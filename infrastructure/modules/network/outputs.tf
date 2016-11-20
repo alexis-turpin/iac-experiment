@@ -14,6 +14,10 @@ output "vpc_id" {
   value = "${aws_vpc.main.id}"
 }
 
+output "bastion_ip" {
+  value = "${aws_instance.bastion.public_ip}"
+}
+
 output "version" {
-  value = "0.1"
+  value = "0.2"
 }
