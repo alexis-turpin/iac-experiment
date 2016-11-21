@@ -6,6 +6,10 @@ output "back_subnets" {
   value = "${module.network.back_subnets}"
 }
 
+output "back_subnets_cidr" {
+  value = ["${module.network.back_subnets_cidr}"]
+}
+
 output "sg_internal_ssh_id" {
   value = "${module.network.sg_internal_ssh_id}"
 }

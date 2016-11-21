@@ -6,6 +6,10 @@ output "back_subnets" {
   value = ["${aws_subnet.back.*.id}"]
 }
 
+output "back_subnets_cidr" {
+  value = ["${aws_subnet.back.*.cidr_block}"]
+}
+
 output "sg_internal_ssh_id" {
   value = "${aws_security_group.internal_ssh.id}"
 }
