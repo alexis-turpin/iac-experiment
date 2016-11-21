@@ -23,7 +23,7 @@ module "front" {
   min_size               = 2
   max_size               = 5
   instance_port          = 8080
-  subnets_id             = "${data.terraform_remote_state.network.front_subnets}"
+  subnets_id             = ["${data.terraform_remote_state.network.front_subnets}"]
   aws_availability_zones = ["${data.aws_availability_zones.all.names}"]
   sg_internal_ssh_id     = "${data.terraform_remote_state.network.sg_internal_ssh_id}"
   vpc_id                 = "${data.terraform_remote_state.network.vpc_id}"
@@ -46,7 +46,7 @@ module "back" {
   min_size               = 2
   max_size               = 5
   instance_port          = 8080
-  subnets_id             = "${data.terraform_remote_state.network.back_subnets}"
+  subnets_id             = ["${data.terraform_remote_state.network.back_subnets}"]
   aws_availability_zones = ["${data.aws_availability_zones.all.names}"]
   sg_internal_ssh_id     = "${data.terraform_remote_state.network.sg_internal_ssh_id}"
   vpc_id                 = "${data.terraform_remote_state.network.vpc_id}"

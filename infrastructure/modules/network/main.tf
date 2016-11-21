@@ -1,13 +1,13 @@
 resource "aws_vpc" "main" {
   cidr_block           = "10.${var.vpc_subnet_tag}.0.0/16"
-  enable_dns_hostnames = "True"
+  enable_dns_hostnames = true
 
   tags {
     Name      = "${var.env}-main-vpc"
     env       = "${var.env}"
     infra     = "global"
-    network   = "True"
-    terraform = "True"
+    network   = true
+    terraform = true
   }
 }
 
@@ -18,8 +18,8 @@ resource "aws_internet_gateway" "main" {
     Name      = "${var.env}-main-ig"
     env       = "${var.env}"
     infra     = "front"
-    network   = "True"
-    terraform = "True"
+    network   = true
+    terraform = true
   }
 }
 
@@ -29,14 +29,14 @@ resource "aws_subnet" "front" {
   availability_zone       = "${element(var.aws_availability_zones, count.index)}"
   vpc_id                  = "${aws_vpc.main.id}"
   cidr_block              = "10.${var.vpc_subnet_tag}.${var.front_subnet_tag}${count.index}.0/24"
-  map_public_ip_on_launch = "True"
+  map_public_ip_on_launch = true
 
   tags {
     Name      = "${var.env}-front-${element(var.aws_availability_zones, count.index)}"
     env       = "${var.env}"
     infra     = "front"
-    network   = "True"
-    terraform = "True"
+    network   = true
+    terraform = true
   }
 }
 
@@ -46,14 +46,14 @@ resource "aws_subnet" "back" {
   availability_zone       = "${element(var.aws_availability_zones, count.index)}"
   vpc_id                  = "${aws_vpc.main.id}"
   cidr_block              = "10.${var.vpc_subnet_tag}.${var.back_subnet_tag}${count.index}.0/24"
-  map_public_ip_on_launch = "True"
+  map_public_ip_on_launch = true
 
   tags {
     Name      = "${var.env}-back-${element(var.aws_availability_zones, count.index)}"
     env       = "${var.env}"
     infra     = "back"
-    network   = "True"
-    terraform = "True"
+    network   = true
+    terraform = true
   }
 }
 

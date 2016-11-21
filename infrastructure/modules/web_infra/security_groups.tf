@@ -8,7 +8,7 @@ resource "aws_security_group" "instance" {
     Name      = "${var.env}-${var.infra}-sg"
     infra     = "${var.infra}"
     env       = "${var.env}"
-    terraform = "True"
+    terraform = true
   }
 }
 
@@ -40,7 +40,7 @@ resource "aws_security_group" "main_elb" {
     Name      = "${var.env}-${var.infra}-ELB"
     infra     = "${var.infra}"
     env       = "${var.env}"
-    terraform = "True"
+    terraform = true
   }
 }
 

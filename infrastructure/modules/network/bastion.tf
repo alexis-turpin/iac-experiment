@@ -20,7 +20,7 @@ resource "aws_instance" "bastion" {
   key_name                    = "${var.env}-bastion"
   subnet_id                   = "${aws_subnet.front.0.id}"
   security_groups             = ["${aws_security_group.bastion_ssh.id}"]
-  associate_public_ip_address = "True"
+  associate_public_ip_address = true
 
   user_data = <<-EOF
               #!/bin/bash
@@ -36,6 +36,6 @@ resource "aws_instance" "bastion" {
     Name      = "${var.env}-bastion"
     infra     = "global"
     env       = "${var.env}"
-    terraform = "True"
+    terraform = true
   }
 }

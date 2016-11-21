@@ -50,7 +50,7 @@ resource "aws_autoscaling_group" "instance" {
 
   tag {
     key                 = "terraform"
-    value               = "True"
+    value               = true
     propagate_at_launch = true
   }
 }
@@ -89,6 +89,6 @@ resource "aws_elb" "main" {
     Name      = "${var.env}-${var.infra}-elb"
     infra     = "${var.infra}"
     env       = "${var.env}"
-    terraform = "True"
+    terraform = true
   }
 }

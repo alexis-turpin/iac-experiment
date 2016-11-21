@@ -13,7 +13,7 @@ resource "aws_security_group" "internal_ssh" {
   tags {
     env       = "${var.env}"
     infra     = "global"
-    terraform = "True"
+    terraform = true
   }
 }
 
@@ -25,7 +25,7 @@ resource "aws_security_group" "bastion_ssh" {
   tags {
     env       = "${var.env}"
     infra     = "global"
-    terraform = "True"
+    terraform = true
   }
 }
 
