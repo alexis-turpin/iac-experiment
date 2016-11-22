@@ -63,3 +63,13 @@ variable "aws_availability_zones" {
   type        = "list"
   description = "List of available AZ in my region"
 }
+
+variable "rds_access" {
+  default     = false
+  description = "should this module implementation have access to the database"
+}
+
+variable "sg_rds_id" {
+  default     = ""
+  description = "Security group applied to the database to access"
+}

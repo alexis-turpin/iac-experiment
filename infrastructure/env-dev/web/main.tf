@@ -9,6 +9,16 @@ data "terraform_remote_state" "network" {
   }
 }
 
+data "terraform_remote_state" "data" {
+  backend = "s3"
+
+  config {
+    bucket = "terraform-states-iac-experiment"
+    key    = "dev/data.tfstate"
+    region = "us-east-1"
+  }
+}
+
 data "aws_availability_zones" "all" {}
 
 provider "aws" {
@@ -50,6 +60,8 @@ module "back" {
   aws_availability_zones = ["${data.aws_availability_zones.all.names}"]
   sg_internal_ssh_id     = "${data.terraform_remote_state.network.sg_internal_ssh_id}"
   vpc_id                 = "${data.terraform_remote_state.network.vpc_id}"
+  rds_access             = true
+  sg_rds_id              = "${data.terraform_remote_state.data.sg_rds_id}"
 
   user_data = <<-EOF
               #!/bin/bash
