@@ -6,6 +6,6 @@ output "rds_endpoint" {
   value = "${module.data.rds_endpoint}"
 }
 
-output "rds_sg_id" {
-  value = "${module.data.rds_sg_id}"
+output "sg_rds_id" {
+  value = "${module.data.sg_rds_id}"
 }

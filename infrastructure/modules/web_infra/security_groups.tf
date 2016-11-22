@@ -31,6 +31,16 @@ resource "aws_security_group_rule" "instance_to_wan" {
   security_group_id = "${aws_security_group.instance.id}"
 }
 
+resource "aws_security_group_rule" "instance_to_db" {
+  count                    = "${var.rds_access}"
+  type                     = "egress"
+  from_port                = 3306
+  to_port                  = 3306
+  protocol                 = "tcp"
+  source_security_group_id = "${var.sg_rds_id}"
+  security_group_id        = "${aws_security_group.instance.id}"
+}
+
 resource "aws_security_group" "main_elb" {
   name_prefix = "${var.env}-${var.infra}-ELB-"
   description = "${var.env}-${var.infra} - Allow communication from WAN to ELB (port ${var.elb_port}) and from ELB to instances (port ${var.elb_port})"
