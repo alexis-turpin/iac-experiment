@@ -71,18 +71,13 @@ class SingleBanana(initialization_handler.InitializationHandler):
                 }
             )
         else:
-            # this way even internal calls get load balanced
-            # TODO : issue with global variable
-            current = requests.get(Application.API_DNS_NAME + "/" + str(banana_id)).json()
             conn = self.connect_db()
             try:
-                color = self.get_argument("color", current["color"])
-                size = self.get_argument("size", current["size"])
-                price = self.get_argument("price", current["price"])
                 with conn.cursor() as cursor:
-                    sql = 'UPDATE `bananas` SET `color` = %s, `size` = %s, `price` = %s WHERE `id` = %s'
-                    qty = cursor.execute(sql, (color, size, price, banana_id))
-                if not qty:  # Number of line changed == 0
+                    sql = 'SELECT * FROM `bananas` WHERE `id` = %s'
+                    qty = cursor.execute(sql, banana_id)
+                    current = cursor.fetchone()
+                if not qty:
                     raise tornado.web.HTTPError(404)
             except tornado.web.HTTPError:
                 self.write(
@@ -94,20 +89,35 @@ class SingleBanana(initialization_handler.InitializationHandler):
             except Exception as e:
                 self.write(
                     {
-                        "error": "Couldn't UPDATE banana:    " + str(e),
+                        "error": "Couldn't query Bananas:  " + str(e),
                         "errorCode": 500
                     }
                 )
             else:
-                conn.commit()
-                self.write(
-                    {
-                        "id": banana_id,
-                        "color": color,
-                        "size": size,
-                        "price": price,
-                    }
-                )
+                try:
+                    color = self.get_argument("color", current[1])
+                    size = self.get_argument("size", current[2])
+                    price = self.get_argument("price", current[3])
+                    with conn.cursor() as cursor:
+                        sql = 'UPDATE `bananas` SET `color` = %s, `size` = %s, `price` = %s WHERE `id` = %s'
+                        cursor.execute(sql, (color, size, price, banana_id))
+                except Exception as e:
+                    self.write(
+                        {
+                            "error": "Couldn't UPDATE banana:    " + str(e),
+                            "errorCode": 500
+                        }
+                    )
+                else:
+                    conn.commit()
+                    self.write(
+                        {
+                            "id": banana_id,
+                            "color": color,
+                            "size": size,
+                            "price": price,
+                        }
+                    )
             finally:
                 conn.close()
 
@@ -122,15 +132,15 @@ class SingleBanana(initialization_handler.InitializationHandler):
         color = self.get_argument("color", None)
         size = self.get_argument("size", None)
         price = self.get_argument("price", None)
-        if not all(banana_id, color, size, price):
+        if not all([banana_id, color, size, price]):
             self.write(
                 {
                     "error": "Missing argument: " + ", ".join(
                         [
-                            bool(banana_id) * "id",
-                            bool(color) * "color",
-                            bool(size) * "size",
-                            bool(price) * "price"
+                            (not bool(banana_id)) * "id",
+                            (not bool(color)) * "color",
+                            (not bool(size)) * "size",
+                            (not bool(price)) * "price",
                         ]
                     ),
                     "errorCode": 400,
@@ -204,3 +214,12 @@ class SingleBanana(initialization_handler.InitializationHandler):
                         "errorCode": 500
                     }
                 )
+            else:
+                conn.commit()
+                self.write(
+                    {
+                        "banana_deleted": qty
+                    }
+                )
+            finally:
+                conn.close()
