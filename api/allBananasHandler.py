@@ -1,15 +1,15 @@
-import tornado.web
 import api
 import json
+import initialization_handler
 
 
-class AllBananas(tornado.web.RequestHandler):
+class AllBananas(initialization_handler.InitializationHandler):
     def get(self):
         """
         Get all bananas and write them in a JSON format
         Takes no parameters
         """
-        conn = api.connect_db()
+        conn = self.connect_db()
         try:
             with conn.cursor() as cursor:
                 qty = cursor.execute('SELECT * FROM `bananas`')
@@ -50,7 +50,7 @@ class AllBananas(tornado.web.RequestHandler):
         size = self.get_argument("size", None)
         price = self.get_argument("price", None)
         if color and size and price and not banana_id:
-            conn = api.connect_db()
+            conn = self.connect_db()
             try:
                 with conn.cursor() as cursor:
                     sql = 'INSERT INTO `bananas` (`color`, `size`, `price`) VALUES (%s, %s, %s)'

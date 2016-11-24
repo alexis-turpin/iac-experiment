@@ -1,8 +1,9 @@
-import tornado.web
 import requests
+import initialization_handler
 
 
-class Home(tornado.web.RequestHandler):
+class Home(initialization_handler.InitializationHandler):
+
     def get(self):
         # TODO : Add a connection to the API LB
         try:

@@ -1,9 +1,8 @@
 import tornado.web
-import api
-import requests
+import initialization_handler
 
 
-class SingleBanana(tornado.web.RequestHandler):
+class SingleBanana(initialization_handler.InitializationHandler):
     def get(
             self,
             banana_id=None
@@ -20,7 +19,7 @@ class SingleBanana(tornado.web.RequestHandler):
                 }
             )
         else:
-            conn = api.connect_db()
+            conn = self.connect_db()
             try:
                 with conn.cursor() as cursor:
                     sql = 'SELECT * FROM `bananas` WHERE `id` = %s'
@@ -75,7 +74,7 @@ class SingleBanana(tornado.web.RequestHandler):
             # this way even internal calls get load balanced
             # TODO : issue with global variable
             current = requests.get(Application.API_DNS_NAME + "/" + str(banana_id)).json()
-            conn = api.connect_db()
+            conn = self.connect_db()
             try:
                 color = self.get_argument("color", current["color"])
                 size = self.get_argument("size", current["size"])
@@ -117,7 +116,6 @@ class SingleBanana(tornado.web.RequestHandler):
             banana_id=None
     ):
         """
-
         :return:
         """
         # TODO doc
@@ -139,7 +137,7 @@ class SingleBanana(tornado.web.RequestHandler):
                 }
             )
         else:
-            conn = api.connect_db()
+            conn = self.connect_db()
             try:
                 with conn.cursor() as cursor:
                     sql = 'UPDATE `bananas` SET `color` = %s, `size` = %s, `price` = %s WHERE `id` = %s'
@@ -185,7 +183,7 @@ class SingleBanana(tornado.web.RequestHandler):
                 }
             )
         else:
-            conn = api.connect_db()
+            conn = self.connect_db()
             try:
                 with conn.cursor() as cursor:
                     sql = 'DELETE FROM `bananas` WHERE `id`=%s'
