@@ -22,7 +22,6 @@ def get_settings():
         "db_passwd": "Password01",
         "db_endpoint": "localhost",
         "db_name": "bananadb",
-        "api_dns_name": "http://192.168.65.132:8080"
     }
 
 
