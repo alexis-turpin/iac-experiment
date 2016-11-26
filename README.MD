@@ -50,7 +50,7 @@ More on this part [here](front/).
 ## How can you participate ?
 
 Obviously this project having no proper goal except practicing, I'm not expecting you to open and pull request.
-But you are very welcome to [open issues](issues/new) to :
+But you are very welcome to [open issues](https://github.com/alexis-turpin/iac-experiment/issues/new) to :
   - Point out some mistakes / bugs,
   - Recommend me to implement some missing features,
   - Remind me of some of the Industry's best practices,
