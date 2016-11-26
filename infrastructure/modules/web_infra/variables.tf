@@ -56,7 +56,7 @@ variable "vpc_id" {
 }
 
 variable "sg_internal_ssh_id" {
-  description = "ID of the security group allow ssh connections between all my instance"
+  description = "ID of the security group allow ssh connections between bastion and instance"
 }
 
 variable "aws_availability_zones" {
