@@ -19,7 +19,7 @@ best practices.
 
 Using: [Terraform](https://www.terraform.io/); [AWS](https://aws.amazon.com/)
 
-More on this part [here](https://github.com/alexis-turpin/iac-experiment/tree/master/infrastructure).
+More on this part [here](infrastructure/).
 
 ### API
 
@@ -31,7 +31,7 @@ and respect best practices.
 
 Using: [Tornado](http://www.tornadoweb.org/)
 
-More on this part [here](https://github.com/alexis-turpin/iac-experiment/tree/master/api).
+More on this part [here](api/).
 
 
 ### Front
@@ -45,12 +45,12 @@ other things to make it more interesting : Caching, Authentication ...
 
 Using: [Tornado](http://www.tornadoweb.org/)
 
-More on this part [here](https://github.com/alexis-turpin/iac-experiment/tree/master/front). 
+More on this part [here](front/). 
 
 ## How can you participate ?
 
 Obviously this project having no proper goal except practicing, I'm not expecting you to open and pull request.
-But you are very welcome to [open issues](https://github.com/alexis-turpin/iac-experiment/issues/new) to :
+But you are very welcome to [open issues](issues/new) to :
   - Point out some mistakes / bugs,
   - Recommend me to implement some missing features,
   - Remind me of some of the Industry's best practices,
