@@ -52,7 +52,8 @@ class AllBananas(initialization_handler.InitializationHandler):
             conn = self.connect_db()
             try:
                 with conn.cursor() as cursor:
-                    sql = 'INSERT INTO `bananas` (`color`, `size`, `price`) VALUES (%s, %s, %s)'
+                    sql = ('INSERT INTO `bananas` (`color`, `size`, `price`)'
+                           'VALUES (%s, %s, %s)')
                     cursor.execute(
                         sql,
                         (color, size, price)
@@ -73,7 +74,8 @@ class AllBananas(initialization_handler.InitializationHandler):
         elif banana_id:
             self.write(
                 {
-                    "error": "POST method cannot have id argument, consider using singleBanana PUT",
+                    "error": ("POST method cannot have id argument,"
+                              "consider using singleBanana PUT"),
                     "errorCode": 400,
                 }
             )

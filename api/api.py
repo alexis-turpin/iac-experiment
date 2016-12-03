@@ -20,10 +20,12 @@ class Application(tornado.web.Application):
 
 def get_settings():
     try:
-        sg = requests.get("http://169.254.169.254/latest/meta-data/security-groups").text
+        sg = requests.get("http://169.254.169.254/latest/meta-data/"
+                          "security-groups").text
         infra = sg.split("-")[0]
     except Exception as e:
-        print("No AWS infrastructure detected, localhost configuration loaded\n", str(e))
+        print("No AWS infrastructure detected, "
+              "localhost configuration loaded\n", str(e))
         return {
             "db_user": "root",
             "db_passwd": "Password01",
@@ -33,14 +35,15 @@ def get_settings():
     else:
         # Get the database config file from S3
         s3 = boto3.client("s3")
-        file = s3.get_object(Bucket="terraform-states-iac-experiment", Key=infra+"/data.tfstate")
+        file = s3.get_object(Bucket="terraform-states-iac-experiment",
+                             Key=infra+"/data.tfstate")
         file_js = json.loads(file["Body"].read().decode("utf-8"))
-        db_conf = file_js["modules"][1]["resources"]["aws_db_instance.main"]["primary"]["attributes"]
+        db_conf = file_js["modules"][1]["resources"]["aws_db_instance.main"]
         return {
-            "db_user": db_conf["username"],
-            "db_passwd": db_conf["password"],
-            "db_endpoint": db_conf["address"],
-            "db_name": db_conf["name"],
+            "db_user": db_conf["primary"]["attributes"]["username"],
+            "db_passwd": db_conf["primary"]["attributes"]["password"],
+            "db_endpoint": db_conf["primary"]["attributes"]["address"],
+            "db_name": db_conf["primary"]["attributes"]["name"],
         }
         # TODO : Test from EC2 with right IAM role (S3 read)
 
