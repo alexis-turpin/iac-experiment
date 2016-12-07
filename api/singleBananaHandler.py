@@ -23,7 +23,7 @@ class SingleBanana(initialization_handler.InitializationHandler):
         Returns:
             A dict describing all data (id, color, size, price) related
             to the chosen banana.
-            Examples (banana_id = 1):
+            Example (banana_id = 1):
                 {
                     "id": 1,
                     "color": "yellow",
@@ -34,7 +34,7 @@ class SingleBanana(initialization_handler.InitializationHandler):
             if banana_id arg is missing, doesn't exist in the DB, or
             there is an issue to query it from the DB, it will return a
             dict describing an error instead.
-            Examples (doesn't exist in the DB):
+            Example (doesn't exist in the DB):
                 {
                     "error": "This banana doesn't exist",
                     "errorCode": 404
@@ -103,7 +103,7 @@ class SingleBanana(initialization_handler.InitializationHandler):
         Returns:
             A dict describing all data (id, color, size, price) related
             to the updated banana.
-            Examples (banana_id = 1, price = 1.49):
+            Example (banana_id = 1, price = 1.49):
                 {
                     "id": 1,
                     "color": "yellow",
@@ -114,7 +114,7 @@ class SingleBanana(initialization_handler.InitializationHandler):
             if banana_id arg is missing, doesn't exist in the DB, or
             there is an issue to query it from the DB, it will return a
             dict describing an error instead.
-            Examples (missing banana_id arg):
+            Example (missing banana_id arg):
                 {
                     "error": "Missing argument:   id",
                     "errorCode": 400,
@@ -202,7 +202,7 @@ class SingleBanana(initialization_handler.InitializationHandler):
         Returns:
             A dict describing all data (id, color, size, price) related
             to the updated banana.
-            Examples (banana_id = 1, color = "green", size = 8.2,
+            Example (banana_id = 1, color = "green", size = 8.2,
                 price = 4.99):
                 {
                     "id": 1,
@@ -214,7 +214,7 @@ class SingleBanana(initialization_handler.InitializationHandler):
             if one or multiple arg(s) is(are) missing, banana doesn't
             exist, or there is an issue to query it from the DB,
             it will return a dict describing an error instead.
-            Examples (missing banana_id and color arg):
+            Example (missing banana_id and color arg):
                 {
                     "error": "Missing argument: id, color, , ",
                     "errorCode": 400,
@@ -290,7 +290,7 @@ class SingleBanana(initialization_handler.InitializationHandler):
         Returns:
             A dict describing how many bananas have been deleted.
             (should be one, since id is unique)
-            Examples (banana_id = 1):
+            Example (banana_id = 1):
                 {
                     "banana_deleted": 1
                 }
@@ -298,7 +298,7 @@ class SingleBanana(initialization_handler.InitializationHandler):
             if banana_id is missing, banana doesn't exist, or there is
             an issue to delete it from the DB, it will return a dict
             describing an error instead.
-            Examples (banana doesn't exist):
+            Example (banana doesn't exist):
                 {
                     "error": "This banana doesn't exist",
                     "errorCode": 404
