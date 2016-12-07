@@ -20,8 +20,8 @@ class Application(tornado.web.Application):
 
 def get_settings():
     try:
-        sg = requests.get("http://169.254.169.254/latest/meta-data/"
-                          "security-groups").text
+        url = "http://169.254.169.254/latest/meta-data/security-groups"
+        sg = requests.get(url).text
         infra = sg.split("-")[0]
     except Exception as e:
         print("No AWS infrastructure detected, "

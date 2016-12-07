@@ -99,7 +99,9 @@ class SingleBanana(initialization_handler.InitializationHandler):
                     size = self.get_argument("size", current[2])
                     price = self.get_argument("price", current[3])
                     with conn.cursor() as cursor:
-                        sql = 'UPDATE `bananas` SET `color` = %s, `size` = %s, `price` = %s WHERE `id` = %s'
+                        sql = ('UPDATE `bananas` '
+                               'SET `color` = %s, `size` = %s, `price` = %s '
+                               'WHERE `id` = %s')
                         cursor.execute(sql, (color, size, price, banana_id))
                 except Exception as e:
                     self.write(
@@ -150,7 +152,9 @@ class SingleBanana(initialization_handler.InitializationHandler):
             conn = self.connect_db()
             try:
                 with conn.cursor() as cursor:
-                    sql = 'UPDATE `bananas` SET `color` = %s, `size` = %s, `price` = %s WHERE `id` = %s'
+                    sql = ('UPDATE `bananas` '
+                           'SET `color` = %s, `size` = %s, `price` = %s '
+                           'WHERE `id` = %s')
                     qty = cursor.execute(sql, (color, size, price, banana_id))
                 if not qty:  # Number of line changed == 0
                     raise tornado.web.HTTPError(404)
