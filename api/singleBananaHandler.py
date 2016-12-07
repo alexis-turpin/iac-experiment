@@ -31,7 +31,7 @@ class SingleBanana(initialization_handler.InitializationHandler):
                     "price": 4.99,
                 }
 
-            if banana_id arg is missing, doesn't exist in the DB, or
+            If banana_id arg is missing, doesn't exist in the DB, or
             there is an issue to query it from the DB, it will return a
             dict describing an error instead.
             Example (doesn't exist in the DB):
@@ -111,7 +111,7 @@ class SingleBanana(initialization_handler.InitializationHandler):
                     "price": 1.49,
                 }
 
-            if banana_id arg is missing, doesn't exist in the DB, or
+            If banana_id arg is missing, doesn't exist in the DB, or
             there is an issue to query it from the DB, it will return a
             dict describing an error instead.
             Example (missing banana_id arg):
@@ -211,7 +211,7 @@ class SingleBanana(initialization_handler.InitializationHandler):
                     "price": 4.99,
                 }
 
-            if one or multiple arg(s) is(are) missing, banana doesn't
+            If one or multiple arg(s) is(are) missing, banana doesn't
             exist, or there is an issue to query it from the DB,
             it will return a dict describing an error instead.
             Example (missing banana_id and color arg):
@@ -295,7 +295,7 @@ class SingleBanana(initialization_handler.InitializationHandler):
                     "banana_deleted": 1
                 }
 
-            if banana_id is missing, banana doesn't exist, or there is
+            If banana_id is missing, banana doesn't exist, or there is
             an issue to delete it from the DB, it will return a dict
             describing an error instead.
             Example (banana doesn't exist):
