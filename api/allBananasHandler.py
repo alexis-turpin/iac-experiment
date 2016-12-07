@@ -75,7 +75,7 @@ class AllBananas(initialization_handler.InitializationHandler):
             self.write(
                 {
                     "error": ("POST method cannot have id argument,"
-                              "consider using singleBanana PUT"),
+                              "consider using singleBanana PUT method"),
                     "errorCode": 400,
                 }
             )
