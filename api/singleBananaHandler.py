@@ -3,15 +3,44 @@ import initialization_handler
 
 
 class SingleBanana(initialization_handler.InitializationHandler):
+    """Single Banana handler
+
+    Implement the GET/PATCH/PUT/DELETE methods for a single banana
+    """
     def get(
             self,
             banana_id=None
     ):
+        """Get a single banana
+
+        Get a single banana identified by the mandatory banana_id param
+        Handle common errors such as banana_id arg missing, not
+        existing or DB errors.
+
+        Args:
+            INT banana_id: mandatory to identify which banana to return
+
+        Returns:
+            A dict describing all data (id, color, size, price) related
+            to the chosen banana.
+            Examples (banana_id = 1):
+                {
+                    "id": 1,
+                    "color": "yellow",
+                    "size": 10.5,
+                    "price": 4.99,
+                }
+
+            if banana_id arg is missing, doesn't exist in the DB, or
+            there is an issue to query it from the DB, it will return a
+            dict describing an error instead.
+            Examples (doesn't exist in the DB):
+                {
+                    "error": "This banana doesn't exist",
+                    "errorCode": 404
+                }
         """
-        :param INT banana_id: default to None
-        :return: write a single banana in JSON format
-        """
-        if not banana_id:
+        if not banana_id:  # Should I just return an empty dict in that case ?
             self.write(
                 {
                     "error": "Missing argument:   id",
@@ -57,12 +86,41 @@ class SingleBanana(initialization_handler.InitializationHandler):
             self,
             banana_id=None
     ):
-        """
+        """Patch a single banana
 
-        :param banana_id:
-        :return:
+        Get a single banana identified by the mandatory banana_id param
+        Then update this banana's color, size AND/OR price according to
+        the related args. Then returns the updated banana.
+        Handle common errors such as banana_id arg missing, not
+        existing or DB errors.
+
+        Args:
+            INT banana_id: mandatory to identify which banana to update
+            STR color: optional new chosen color
+            FLOAT size: optional new chosen size
+            FLOAT price: optional new chosen price
+
+        Returns:
+            A dict describing all data (id, color, size, price) related
+            to the updated banana.
+            Examples (banana_id = 1, price = 1.49):
+                {
+                    "id": 1,
+                    "color": "yellow",
+                    "size": 10.5,
+                    "price": 1.49,
+                }
+
+            if banana_id arg is missing, doesn't exist in the DB, or
+            there is an issue to query it from the DB, it will return a
+            dict describing an error instead.
+            Examples (missing banana_id arg):
+                {
+                    "error": "Missing argument:   id",
+                    "errorCode": 400,
+                }
         """
-        # TODO doc
+        # TODO: Must find a better way to patch than SELECT then UPDATE
         if not banana_id:
             self.write(
                 {
@@ -127,10 +185,41 @@ class SingleBanana(initialization_handler.InitializationHandler):
             self,
             banana_id=None
     ):
+        """Put a single banana
+
+        Update color, size AND price of a banana chosen by the
+        mandatory banana_id arg. All args are mandatory.
+        Then returns the updated banana
+        Handle common errors such as args missing, banana not existing
+        or DB errors.
+
+        Args:
+            INT banana_id: mandatory to identify which banana to update
+            STR color: mandatory new chosen color
+            FLOAT size: mandatory new chosen size
+            FLOAT price: mandatory new chosen price
+
+        Returns:
+            A dict describing all data (id, color, size, price) related
+            to the updated banana.
+            Examples (banana_id = 1, color = "green", size = 8.2,
+                price = 4.99):
+                {
+                    "id": 1,
+                    "color": "green",
+                    "size": 8.2,
+                    "price": 4.99,
+                }
+
+            if one or multiple arg(s) is(are) missing, banana doesn't
+            exist, or there is an issue to query it from the DB,
+            it will return a dict describing an error instead.
+            Examples (missing banana_id and color arg):
+                {
+                    "error": "Missing argument: id, color, , ",
+                    "errorCode": 400,
+                }
         """
-        :return:
-        """
-        # TODO doc
         color = self.get_argument("color", None)
         size = self.get_argument("size", None)
         price = self.get_argument("price", None)
@@ -189,6 +278,32 @@ class SingleBanana(initialization_handler.InitializationHandler):
             self,
             banana_id=None
     ):
+        """Delete a single banana
+
+        Delete a single banana chosen by the mandatory banana_id arg.
+        Handle common errors such as banana_id arg missing, banana not
+        existing or DB errors.
+
+        Args:
+            INT banana_id: mandatory to identify which banana to delete
+
+        Returns:
+            A dict describing how many bananas have been deleted.
+            (should be one, since id is unique)
+            Examples (banana_id = 1):
+                {
+                    "banana_deleted": 1
+                }
+
+            if banana_id is missing, banana doesn't exist, or there is
+            an issue to delete it from the DB, it will return a dict
+            describing an error instead.
+            Examples (banana doesn't exist):
+                {
+                    "error": "This banana doesn't exist",
+                    "errorCode": 404
+                }
+        """
         if not banana_id:
             self.write(
                 {
