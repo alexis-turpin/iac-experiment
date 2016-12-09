@@ -1,8 +1,8 @@
 import tornado.web
 from tornado.ioloop import IOLoop
-import allBananasHandler
-import homeHandler
-import singleBananaHandler
+import all_bananas_handler
+import home_handler
+import single_banana_handler
 import requests
 import boto3
 import json
@@ -11,9 +11,9 @@ import json
 class Application(tornado.web.Application):
     def __init__(self, settings):
         handlers = [
-            (r"/?", homeHandler.Home, settings),
-            (r"/banana/?", allBananasHandler.AllBananas, settings),
-            (r"/banana/([^/]*)", singleBananaHandler.SingleBanana, settings)
+            (r"/?", home_handler.Home, settings),
+            (r"/banana/?", all_bananas_handler.AllBananas, settings),
+            (r"/banana/([^/]*)", single_banana_handler.SingleBanana, settings)
         ]
         tornado.web.Application.__init__(self, handlers, autoreload=True)
 
