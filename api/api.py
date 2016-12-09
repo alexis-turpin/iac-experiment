@@ -9,6 +9,21 @@ import json
 
 
 class Application(tornado.web.Application):
+    """Main application of the project
+
+    Define the main web application of the project. Receive a settings dict
+    and pass it through to all its handlers.
+    Automatically reloads on file changes.
+    Manages following path:
+        /
+        /banana/
+        /banana/id
+
+    Args:
+        DICT settings: A dict containing all the needed key:value pair to
+        allow handlers to connect to the project DB.
+            Mandatory Keys:db_user, db_passwd, db_endpoint, db_name.
+    """
     def __init__(self, settings):
         handlers = [
             (r"/?", home_handler.Home, settings),
@@ -19,6 +34,24 @@ class Application(tornado.web.Application):
 
 
 def get_settings():
+    """Get database settings
+
+    Try to get database settings (user, password, endpoint, name) from a
+    terraform remote state on an S3 bucket. It will guess the right S3 key from
+    the instance security-group name.
+    If not AWS hosted it will default to localhost dev values.
+
+    Returns:
+        A dict containing DB settings to use by all handler in order to connect
+        to the project DB. Or default local value if not AWS hosted
+        Example (not AWS hosted):
+            {
+                "db_user": "root",
+                "db_passwd": "Password01",
+                "db_endpoint": "localhost",
+                "db_name": "bananadb",
+            }
+    """
     try:
         url = "http://169.254.169.254/latest/meta-data/security-groups"
         sg = requests.get(url).text
