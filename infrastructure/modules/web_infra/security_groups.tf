@@ -32,7 +32,7 @@ resource "aws_security_group_rule" "instance_to_wan" {
 }
 
 resource "aws_security_group_rule" "instance_to_db" {
-  count                    = "${var.rds_access}"
+  count                    = "${var.rds_s3_access}"
   type                     = "egress"
   from_port                = 3306
   to_port                  = 3306

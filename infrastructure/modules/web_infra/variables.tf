@@ -64,7 +64,7 @@ variable "aws_availability_zones" {
   description = "List of available AZ in my region"
 }
 
-variable "rds_access" {
+variable "rds_s3_access" {
   default     = false
   description = "should this module implementation have access to the database"
 }

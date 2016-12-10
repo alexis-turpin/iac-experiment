@@ -19,7 +19,8 @@ All created instances will be automatically linked to the module's
   - `vpc_id`: Environment dedicated VPC. Used to created security groups
   - `sg_internal_ssh_id`: ID of the security group allow ssh connections between bastion and instance"
   - `aws_availability_zones`: List of available AZ in my region - `list`
-  - `rds_access`: Access to the database - `bool`
+  - `rds_S3_access`: Access to the database and read only access the S3
+     bucket - `bool`
   - `sg_rds_id`: Security group allowing access to the db
 
 ### Outputs
