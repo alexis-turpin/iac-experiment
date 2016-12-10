@@ -56,12 +56,14 @@ resource "aws_autoscaling_group" "instance" {
 }
 
 resource "aws_launch_configuration" "instance" {
-  name_prefix     = "${var.env}-${var.infra}-conf"
-  image_id        = "${data.aws_ami.ubuntu.image_id}"
-  instance_type   = "${var.instance_type}"
-  security_groups = ["${aws_security_group.instance.id}", "${var.sg_internal_ssh_id}"]
-  user_data       = "${var.user_data}"
-  key_name        = "${var.key_name}"
+  name_prefix          = "${var.env}-${var.infra}-conf"
+  image_id             = "${data.aws_ami.ubuntu.image_id}"
+  instance_type        = "${var.instance_type}"
+  security_groups      = ["${aws_security_group.instance.id}", "${var.sg_internal_ssh_id}"]
+  user_data            = "${var.user_data}"
+  key_name             = "${var.key_name}"
+  # Select the only one of them that has been created according to the rds_s3_access variable.
+  iam_instance_profile = "${element(concat(aws_iam_instance_profile.S3_true.*.id, aws_iam_instance_profile.S3_false.*.id), 0)}"
 }
 
 #  Load-balancer
