@@ -65,9 +65,14 @@ module "back" {
 
   user_data = <<-EOF
               #!/bin/bash
-              echo "I am back :  " > index.html
-              curl http://169.254.169.254/latest/meta-data/local-ipv4 >> index.html
-              echo "<br>" >> index.html
-              nohup busybox httpd -f -p 8080 &
+              apt-get update
+              apt-get upgrade -y
+              apt-get install -y python3-pip git
+              pip3 install --upgrade pip
+              pip3 install pymysql tornado boto3
+              cd /tmp
+              git clone https://github.com/alexis-turpin/iac-experiment/
+              cd iac-experiment/api
+              python3 api.py >> api.log
               EOF
 }
