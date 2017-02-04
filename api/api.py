@@ -78,7 +78,6 @@ def get_settings():
             "db_endpoint": db_conf["primary"]["attributes"]["address"],
             "db_name": db_conf["primary"]["attributes"]["name"],
         }
-        # TODO : Test from EC2 with right IAM role (S3 read)
 
 
 def main():
