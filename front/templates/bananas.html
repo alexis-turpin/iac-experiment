@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>[{{ infra }}] - {{ len(bananas) }} bananas on this page !</title>
+</head>
+<body>
+    <h1>All my {{ len(bananas) }} bananas</h1>
+    <ul>
+       {% for b in bananas %}
+         <li>
+             <a href="http://{{ front_ip }}/banana/{{ b["id"] }}">
+                {{ b["color"].capitalize() }} banana of size {{ b["size"] }} for <strong>{{ b["price"] }}</strong>
+             </a>
+         </li>
+       {% end %}
+     </ul>
+    <h2>Add a new banana</h2>
+    <form id="add_banana" action="http://{{front_ip}}/banana" method="post">
+        <label for="color">Color</label><br>
+        <input type="text" name="color" style="width:100px" id="color"><br>
+        <label for="size">Size</label><br>
+        <input type="text" name="size" style="width:100px" id="size"><br>
+        <label for="price">Price</label><br>
+        <input type="text" name="price" style="width:100px" id="price"> RMB<br>
+
+        <input type="submit" id="add" name="add" value="ADD" class="button"><br />
+    </form>
+
+
+</body>
+</html>
+

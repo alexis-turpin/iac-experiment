@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>[{{ infra }}] - Banana Project</title>
+</head>
+<body>
+    <h1>Banana project - infra {{ infra }} </h1>
+    <h2>This page has been served to you from:</h2>
+    <ul>
+        <li>Front server: {{ local_ip }}</li>
+        <li>API server: {{ api_ip }}</li>
+    </ul>
+    <p>For more content please visit the
+        <a href="http://{{ front_ip }}/banana">
+            banana page
+        </a>
+    </p>
+</body>
+</html>
