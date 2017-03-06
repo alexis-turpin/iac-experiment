@@ -18,5 +18,5 @@ class Home(initialization_handler.InitializationHandler):
             url = "http://169.254.169.254/latest/meta-data/local-ipv4"
             local_ip = requests.get(url).text
         except Exception as e:
-            local_ip = "Not AWS hosted" + str(e)
+            local_ip = "Not AWS hosted"
         self.write({"api-ip": local_ip})
