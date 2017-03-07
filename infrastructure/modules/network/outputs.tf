@@ -21,3 +21,7 @@ output "vpc_id" {
 output "bastion_ip" {
   value = "${aws_instance.bastion.public_ip}"
 }
+
+output "network_az" {
+  value = "${var.aws_availability_zones}"
+}

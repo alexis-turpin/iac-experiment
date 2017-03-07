@@ -21,3 +21,7 @@ output "vpc_id" {
 output "bastion_ip" {
   value = "${module.network.bastion_ip}"
 }
+
+output "network_az" {
+  value = "${module.network.network_az}"
+}

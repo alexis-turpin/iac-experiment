@@ -19,7 +19,7 @@ data "aws_ami" "ubuntu" {
 resource "aws_autoscaling_group" "instance" {
   name                 = "${var.env}-${var.infra}-asg"
   launch_configuration = "${aws_launch_configuration.instance.id}"
-  availability_zones   = ["${var.aws_availability_zones}"]
+  availability_zones   = ["${sort(var.aws_availability_zones)}"]
   load_balancers       = ["${aws_elb.main.name}"]
   vpc_zone_identifier  = ["${var.subnets_id}"]
   health_check_type    = "ELB"

@@ -19,8 +19,6 @@ data "terraform_remote_state" "data" {
   }
 }
 
-data "aws_availability_zones" "all" {}
-
 provider "aws" {
   region = "${var.region}"
 }
@@ -34,7 +32,7 @@ module "front" {
   max_size               = 5
   instance_port          = 8080
   subnets_id             = ["${data.terraform_remote_state.network.front_subnets}"]
-  aws_availability_zones = ["${data.aws_availability_zones.all.names}"]
+  aws_availability_zones = ["${data.terraform_remote_state.network.network_az}"]
   sg_internal_ssh_id     = "${data.terraform_remote_state.network.sg_internal_ssh_id}"
   vpc_id                 = "${data.terraform_remote_state.network.vpc_id}"
 
@@ -57,7 +55,7 @@ module "back" {
   max_size               = 5
   instance_port          = 8080
   subnets_id             = ["${data.terraform_remote_state.network.back_subnets}"]
-  aws_availability_zones = ["${data.aws_availability_zones.all.names}"]
+  aws_availability_zones = ["${data.terraform_remote_state.network.network_az}"]
   sg_internal_ssh_id     = "${data.terraform_remote_state.network.sg_internal_ssh_id}"
   vpc_id                 = "${data.terraform_remote_state.network.vpc_id}"
   rds_s3_access          = true
