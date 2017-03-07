@@ -5,6 +5,7 @@ import requests
 import all_bananas_handler
 import home_handler
 import single_banana_handler
+import boto3
 
 
 class Application(tornado.web.Application):
@@ -34,10 +35,16 @@ def get_settings():
         }
     else:
         # Get the database config file from S3
-        # TODO check the tfstate file to extract the values
+        s3 = boto3.client("s3")
+        file = s3.get_object(
+            Bucket="terraform-states-iac-experiment",
+            Key=infra + "/web.tfstate"
+        )
+        file_js = json.loads(file["Body"].read().decode("utf-8"))
+        outputs = file_js["modules"][0]["outputs"]
         return {
-            "front_ip": "192.168.65.140:8080",
-            "back_ip": "192.168.65.132:8080",
+            "front_ip": outputs["front_elb_dns_name"]["value"],
+            "back_ip": outputs["back_elb_dns_name"]["value"],
             "infra": infra
         }
 
