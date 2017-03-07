@@ -14,13 +14,11 @@ variable "vpc_subnet_tag" {
 }
 
 variable "front_subnet_tag" {
-  description = "Subnet used by the front instances 10.vpc.X[1-9].0/16
-      (recommended X < 10 in case the region has more than 10 AZ "
+  description = "Subnet used by the front instances 10.vpc.X[1-9].0/16 (recommended X < 10 in case the region has more than 10 AZ "
 }
 
 variable "back_subnet_tag" {
-  description = "Subnet used by the back instances 10.vpc.X[1-9].0/16
-      (recommended X < 10 in case the region has more than 10 AZ "
+  description = "Subnet used by the back instances 10.vpc.X[1-9].0/16 (recommended X < 10 in case the region has more than 10 AZ "
 }
 
 variable "bastion_open_ports" {

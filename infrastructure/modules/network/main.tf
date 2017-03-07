@@ -25,7 +25,9 @@ resource "aws_internet_gateway" "main" {
 
 resource "aws_subnet" "front" {
   # dirty hard-code for now workaround for issue #1497
-  count                   = 4
+  # TODO Should be corrected with version 0.9
+  count = 4
+
   availability_zone       = "${element(var.aws_availability_zones, count.index)}"
   vpc_id                  = "${aws_vpc.main.id}"
   cidr_block              = "10.${var.vpc_subnet_tag}.${var.front_subnet_tag}${count.index}.0/24"
@@ -41,8 +43,10 @@ resource "aws_subnet" "front" {
 }
 
 resource "aws_subnet" "back" {
-  # dirty hard-code for now workaround for issue 1497
-  count                   = 4
+  # dirty hard-code for now workaround for issue #1497
+  # TODO Should be corrected with version 0.9
+  count = 4
+
   availability_zone       = "${element(var.aws_availability_zones, count.index)}"
   vpc_id                  = "${aws_vpc.main.id}"
   cidr_block              = "10.${var.vpc_subnet_tag}.${var.back_subnet_tag}${count.index}.0/24"
